@@ -9,11 +9,12 @@ const getDogs = async () => {
     const { data } = await axios(
       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
     );
-    
+
     //?Realizo el mapeo de data para obtener las propiedades que necesito y ademas añado la propiedad created: false que me indica que toda esta información viene de la Api y no fue creada por el usuario, esto lo almaceno en mi variable apiResponse.
     const apiResponse = await data.map((dog) => {
       return {
         id: dog.id,
+        name: dog.name,
         image: dog.image.url,
         height: dog.height.metric,
         weight: dog.weight.metric,
