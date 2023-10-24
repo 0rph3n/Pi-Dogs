@@ -33,6 +33,12 @@ const getDogs = async () => {
         },
       },
     });
+    //!FALTA TRAER LOS DATOS QUE SON DE LOS PERROS COMO HACEMOS DESDE LA API
+    //Este no es necesariamente el lugar final donde van
+    //
+    //
+    //
+    //
     //?Realizo un return de la información en forma de array haciendo spread de la respuesta de mi base de datos y api.
     return [...apiResponse, ...dogsBd];
   } catch (error) {

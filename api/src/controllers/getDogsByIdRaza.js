@@ -20,6 +20,15 @@ const getDogsByIdRaza = async (req) => {
       });
       //?Puede darse el caso de que ingrese un Id UUID pero no se encuentre en la base de datos, para ello tiramos un error si dogByRazaDb no devuelve nada.
       if (!dogByRazaDb) throw new Error("Perro no encontrado");
+      //!FALTA TRAER LOS DATOS QUE SON DE LOS PERROS COMO HACEMOS DESDE LA API
+      //este no es necesariamente el lugar donde van, investigar
+      //
+      //
+      //
+      //
+      //
+      //
+      //
       else return dogByRazaDb;
     } catch (error) {
       throw new Error("No se recibio respuesta");
