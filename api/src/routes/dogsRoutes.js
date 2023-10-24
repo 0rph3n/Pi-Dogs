@@ -3,19 +3,26 @@ const { Router } = require("express");
 const getDogs = require("../controllers/getDogs");
 const getDogsByIdRaza = require("../controllers/getDogsByIdRaza");
 const getDogsByName = require("../controllers/getDogsByName");
+const postDogs = require("../controllers/postDogs");
 
 const dogsRouter = Router();
 
 //Generamos las rutas correspondiente para cada petición
-
+//!Hacer dos rutas una para traer todo de la bd y otra de la Api para luego usar los filtros en el front.
 dogsRouter.get("/", async (req, res) => {
+  const { name } = req.query;
   try {
-    const allDogs = await getDogs();
-    res.status(200).send(allDogs);
+    if (name) {
+      const dogByName = await getDogsByName(name);
+      res.status(200).send(dogByName);
+    } else {
+      const allDogs = await getDogs();
+      res.status(200).send(allDogs);
+    }
   } catch (error) {
     res
       .status(400)
-      .json({ error: "Error al obtener los perros" + error.message });
+      .json({ error: "Error al obtener los perros. " + error.message });
   }
 });
 
@@ -24,18 +31,18 @@ dogsRouter.get("/:id", async (req, res) => {
     const dogByRaza = await getDogsByIdRaza(req);
     res.status(200).send(dogByRaza);
   } catch (error) {
-    res.status(400).json("No se accedio a los perros. " + error.message);
+    res.status(404).json("No se accedio a los perros. " + error.message);
   }
 });
 
-dogsRouter.get("/name?=", async (req, res) => {
+dogsRouter.post("/", async (req, res) => {
   try {
-    const dogByName = getDogsByName(req);
-    res.status(200).send(dogByName);
+    const newDog = await postDogs(req);
+    res.status(201).json({ message: "Perro creado con exito", dog: newDog });
   } catch (error) {
     res
       .status(400)
-      .json("No se pudo acceder a la busqueda por nombre. " + error.message);
+      .json({ error: "No se pudo crear el perro", message: error.message });
   }
 });
 
