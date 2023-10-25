@@ -4,12 +4,13 @@ const { Dog, Temperament } = require("../db");
 const { API_KEY } = process.env;
 const { Op } = require("sequelize");
 
-
-
 const getDogsByName = async (name) => {
   //? Se realiza una findAll a mi base para traer todos los perros donde la name que me ingresa coincida con el registrado, se utiliza Op.iLike ya que debe ser casa insensitive.
   try {
-    const dogByNameDB = await Dog.findAll({
+    const dogByNameDb = await Dog.findAll({
+      where: {
+        name: { [Op.iLike]: `%${name}%` },
+      },
       include: {
         model: Temperament,
         attributes: ["name"],
@@ -17,20 +18,19 @@ const getDogsByName = async (name) => {
           attributes: [],
         },
       },
-      where: {
-        name: { [Op.iLike]: `%${name}%` },
-      },
     });
-    //?Chequeo que mi array no este vacio y realizo un mapeo trayendo las propiedades que necesito.
-    if (dogByNameDB.length > 0) {
-      const dogDb = await dogByNameDB.map((dog) => ({
+
+    //?Chequeo que mi array no este vacio y realizo un mapeo trayendo las propiedades que necesito. Estoy trayendo todas las coincidencias, si quisiera solo una podria crear una variable firstDog = dogByNameDb[0] y en dogDb elimino el map y llamo a firstDog.atributos
+    if (Array.isArray(dogByNameDb) && dogByNameDb.length > 0) {
+      const dogDb = dogByNameDb.map((dog) => ({
         id: dog.id,
         name: dog.name,
         image: dog.image,
         height: dog.height,
         weight: dog.weight,
         life_span: dog.life_span,
-        temperament: dog.temperament.map((temp) => temp.name),
+        temperament: dog.Temperaments.map((temp) => temp.name),
+        created: dog.createInDb,
       }));
       return dogDb;
     }
@@ -38,7 +38,7 @@ const getDogsByName = async (name) => {
     const { data } = await axios(
       `https://api.thedogapi.com/v1/breeds/search?api_key=${API_KEY}&q=${name}`
     );
-    const dogApi = await data.map((dog) => ({
+    const dogApi = data.map((dog) => ({
       id: dog.id,
       name: dog.name,
       image: dog.image.url,
@@ -48,32 +48,9 @@ const getDogsByName = async (name) => {
       temperament: dog.temperament ? dog.temperament.split(", ") : [],
     }));
     return dogApi;
-    
   } catch (error) {
     throw new Error("No se encontraron perros. " + error.message);
   }
 };
 
 module.exports = getDogsByName;
-
-// // Busqueda todos los perro y por query //
-// const allPerritos = async (raza) => {
-//   //-- Peticiones a la DB y a la API --//
-//   const pichichosDB = await Dog.findAll();
-//   const {data} = await axios.get(https://api.thedogapi.com/v1/breeds?api_key=${API_KEY})
-
-//   const todosLosPerritos = [...pichichosDB, ...data];
-
-//   if (raza){
-//       const perritosQuery = todosLosPerritos.filter(pichicho => {
-//           return pichicho.name.toLowerCase().includes(raza.toLowerCase())
-//       })
-//       if (perritosQuery.length < 1){
-//           return CatDog
-//       } else {
-//           return perritosQuery
-//       }
-//   } else {
-//       return todosLosPerritos
-//   }
-// }

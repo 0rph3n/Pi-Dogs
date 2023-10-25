@@ -5,8 +5,8 @@ const { API_KEY } = process.env;
 
 const getDogs = async () => {
   try {
-    //?Hago una solicitud de tipo axios(promesa) a mi api key y desgloso la respuesta con el destructuring de data ya que en la misma se almacena mi respuesta
-    const { data } = await axios(
+    //?Hago una solicitud de tipo axios.get a mi api key y desgloso la respuesta con el destructuring de data ya que en la misma se almacena mi respuesta
+    const { data } = await axios.get(
       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
     );
 
@@ -23,8 +23,9 @@ const getDogs = async () => {
         created: false,
       };
     });
+
     //?Realizo un busqueda en mi base de datos de todo lo que posee mi modelo Dog e incluyo la información de temperamento, especificamente el atributo name, almaceno la información en mi variable dogsDb.
-    const dogsBd = await Dog.findAll({
+    const dogsDb = await Dog.findAll({
       include: {
         model: Temperament,
         attributes: ["name"],
@@ -33,17 +34,27 @@ const getDogs = async () => {
         },
       },
     });
-    //!FALTA TRAER LOS DATOS QUE SON DE LOS PERROS COMO HACEMOS DESDE LA API
-    //Este no es necesariamente el lugar final donde van
-    //
-    //
-    //
-    //
-    //?Realizo un return de la información en forma de array haciendo spread de la respuesta de mi base de datos y api.
-    return [...apiResponse, ...dogsBd];
+
+    //?Realizo el mapeo de mi información extrayendo los datos que necesito y ademas mapeo el temperamento para extraer el dato de name.
+    const dbResponse = dogsDb.map((dog) => {
+      return {
+        id: dog.id,
+        name: dog.name,
+        image: dog.image,
+        height: dog.height,
+        weight: dog.weight,
+        life_span: dog.life_span,
+        temperament: dog.Temperaments.map((temp) => temp.name),
+        created: dog.createInDb,
+      };
+    });
+
+    //?Almaceno en un variable la respues de mi Db y Api mediante un spread, realizo un return de la información.
+    const allDogs = [...apiResponse, ...dbResponse];
+    return allDogs;
   } catch (error) {
-    console.error("Error en la solicitud a la API:", error);
-    throw new Error("No se pudieron obtener los datos de la API externa.");
+    console.error("Error en la solicitud:", error);
+    throw new Error("No se pudieron obtener los datos de los perros.");
   }
 };
 

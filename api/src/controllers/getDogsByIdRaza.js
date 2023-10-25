@@ -2,13 +2,13 @@ const axios = require("axios");
 require("dotenv").config();
 const { Dog, Temperament } = require("../db");
 const { API_KEY } = process.env;
-const validateUUID = require("../utils/validateUUID");
 
 const getDogsByIdRaza = async (req) => {
   //?Realizamos un destructuring del id que nos llega por parametro, comenzamos validando si lo que nos llega es un UUID(letras y numeros) que corresponde a nuestra base de datos o si es numero que corresponde a la API.
-  //?Para ello creamos un función que se encarga de validar si es un UUIDv4 en la carpeta utils/validateUUID.js
+  //?Para ello validamos preguntando si el id es un NaN(not a number)
   const { id } = req.params;
-  if (validateUUID(id)) {
+
+  if (isNaN(id)) {
     try {
       //?Una vez cumplida la validación del if buscamos en nuestra base de datos por id que nos entra
       const dogByRazaDb = await Dog.findByPk(id, {
@@ -18,20 +18,19 @@ const getDogsByIdRaza = async (req) => {
           trough: { attributes: [] },
         },
       });
-      //?Puede darse el caso de que ingrese un Id UUID pero no se encuentre en la base de datos, para ello tiramos un error si dogByRazaDb no devuelve nada.
-      if (!dogByRazaDb) throw new Error("Perro no encontrado");
-      //!FALTA TRAER LOS DATOS QUE SON DE LOS PERROS COMO HACEMOS DESDE LA API
-      //este no es necesariamente el lugar donde van, investigar
-      //
-      //
-      //
-      //
-      //
-      //
-      //
-      else return dogByRazaDb;
+
+      const dogByRaza = {
+        id: dogByRazaDb.id,
+        name: dogByRazaDb.name,
+        image: dogByRazaDb.image,
+        height: dogByRazaDb.height,
+        weight: dogByRazaDb.weight,
+        life_span: dogByRazaDb.life_span,
+        temperament: dogByRazaDb.Temperaments.map((temp) => temp.name),
+      };
+      return dogByRaza;
     } catch (error) {
-      throw new Error("No se recibio respuesta");
+      throw new Error("el perro no existe");
     }
   } else {
     try {
@@ -41,6 +40,9 @@ const getDogsByIdRaza = async (req) => {
       );
       //?Con la respues de nuestra petición hacemos un find y almacenamos solo la información necesaria en una nueva variable.
       const response = await data.find((dog) => dog.id == id);
+      if (!response) {
+        throw new Error("No se encontraron perros en la Api Externa");
+      }
       const dogByRazaApi = {
         id: response.id,
         name: response.name,
@@ -53,7 +55,7 @@ const getDogsByIdRaza = async (req) => {
       };
       return dogByRazaApi;
     } catch (error) {
-      throw new Error("No se encontraron perros");
+      throw new Error("No se encontraron perros en la Api Externa");
     }
   }
 };
