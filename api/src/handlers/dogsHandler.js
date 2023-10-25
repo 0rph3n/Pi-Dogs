@@ -1,7 +1,10 @@
-const getDogs = require("../controllers/getDogs");
+const getDogsApi = require("../controllers/getDogsApi");
 const getDogsByIdRaza = require("../controllers/getDogsByIdRaza");
 const getDogsByName = require("../controllers/getDogsByName");
+const getDogsDb = require("../controllers/getDogsDb");
 const postDogs = require("../controllers/postDogs");
+
+//!Hacer dos rutas una para traer todo de la bd y otra de la Api para luego usar los filtros en el front.
 
 module.exports = {
   getAllDogs: async (req, res) => {
@@ -11,8 +14,10 @@ module.exports = {
         const dogByName = await getDogsByName(name);
         res.status(200).send(dogByName);
       } else {
-        const allDogs = await getDogs();
-        res.status(200).send(allDogs);
+        const dogApi = await getDogsApi();
+        const dogDb = await getDogsDb();
+
+        res.status(200).send([...dogApi, ...dogDb]);
       }
     } catch (error) {
       res
