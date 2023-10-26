@@ -3,7 +3,7 @@ const getDogsByIdRaza = require("../controllers/getDogsByIdRaza");
 const getDogsByName = require("../controllers/getDogsByName");
 const getDogsDb = require("../controllers/getDogsDb");
 const postDogs = require("../controllers/postDogs");
-
+const { Dog } = require("../db");
 
 module.exports = {
   getAllDogs: async (req, res) => {
@@ -40,6 +40,19 @@ module.exports = {
       res
         .status(400)
         .json({ error: "No se pudo crear el perro", message: error.message });
+    }
+  },
+  deleteDog: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const validacion = await getDogsByIdRaza(req);
+      if (validacion) await Dog.destroy({ where: { id: id } });
+      res.status(200).send({ message: "Se elimino el perro con exito" });
+    } catch (error) {
+      res.status(400).json({
+        error: "No se pudo eliminar el perro solicitado porque",
+        message: error.message,
+      });
     }
   },
 };
