@@ -1,7 +1,10 @@
 import React from "react";
+import "./Landing.styles.css";
 
-function Landing() {
-  return <div>Landing</div>;
+export default function Landing() {
+  return (
+    <div>
+      <p>Esto es Landing</p>
+    </div>
+  );
 }
-
-export default Landing;
