@@ -1,18 +1,16 @@
-import React from "react";
 import Card from "../Card/Card.component";
 import "./Cards.styles.css";
 
-function Cards() {
+function Cards({ allDogs }) {
+  const dogsList = allDogs;
+
   return (
     <div className="tarjetas">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      {dogsList ? (
+        dogsList.map((dog) => <Card dog={dog} key={dog.id} />)
+      ) : (
+        <p>No hay perros disponibles.</p>
+      )}
     </div>
   );
 }
