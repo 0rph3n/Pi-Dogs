@@ -4,7 +4,7 @@ import "./Cards.styles.css";
 
 function Cards() {
   return (
-    <div>
+    <div className="tarjetas">
       <Card />
       <Card />
       <Card />

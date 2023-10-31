@@ -7,8 +7,8 @@ import "./Home.styles.css";
 
 function Home() {
   return (
-    <div>
-      <p>Esto es Home</p>
+    <div className="home">
+      <h1 className="titulo">Api Dogs</h1>
       <Navbar />
       <Filters />
       <Cards />

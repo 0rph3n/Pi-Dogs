@@ -4,9 +4,9 @@ import "./Navbar.styles.css";
 
 function Navbar() {
   return (
-    <div>
+    <nav className="navbar">
       <SearchBar />
-    </div>
+    </nav>
   );
 }
 

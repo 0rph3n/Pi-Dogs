@@ -1,0 +1,15 @@
+.tarjeta{
+  display: flex;
+  flex-direction: column;
+  /* width: fit-content; */
+  background-color: #B3D92B;
+  padding: 25px;
+  border-radius: 10px;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+.tarjeta:hover{
+  transform: scale(1.05);
+}

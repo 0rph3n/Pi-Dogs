@@ -1,0 +1,11 @@
+.navbar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #3BC9D9;
+  opacity: 80%;
+  height: 50px;
+  border-radius: 15px;
+  width: 90vw;
+  margin: 0 auto;
+}
