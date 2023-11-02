@@ -27,7 +27,7 @@ module.exports = {
   getDogById: async (req, res) => {
     try {
       const dogByRaza = await getDogsByIdRaza(req);
-      res.status(200).send(dogByRaza);
+      res.status(200).json(dogByRaza);
     } catch (error) {
       res.status(404).json({ error: "Hubo un error, " + error.message });
     }

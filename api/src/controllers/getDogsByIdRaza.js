@@ -15,7 +15,7 @@ const getDogsByIdRaza = async (req) => {
         include: {
           model: Temperament,
           attributes: ["name"],
-          trough: { attributes: [] },
+          through: { attributes: [] },
         },
       });
 
@@ -53,6 +53,7 @@ const getDogsByIdRaza = async (req) => {
         temperament: response.temperament,
         created: false,
       };
+
       return dogByRazaApi;
     } catch (error) {
       throw new Error("No se encontraron perros en la Api Externa");

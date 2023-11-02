@@ -27,11 +27,15 @@ function Home() {
   //*Dispatch que trae a todos los perros
   useEffect(() => {
     dispatch(getDogs());
-
-    //!AVERIGUAR SOBRE CLEAR DETAIL Y COMO APLICARLO, SIRVE PARA QUE AL ENTRAR AL DETALLE DE UN PERRO Y VOLVER AL HOME, EL DETALLE NO QUEDE GUARDADO EN SEGUANDO PLANO, ASI AL VOLVER A INGRESAR AL DETALLE DE OTRO PERRO NO SIGA MOSTRANDO EL DEL ANTERIOR.
-    //?Cuando queremos desmontar un componente en un useEffect debemos retornar algo, por lo que si queremos desmontar el detail debemos retornar algo que lo limpie ademas
-    // return (() =>{clearDetail()})
   }, [dispatch]);
+
+  //!AVERIGUAR SOBRE CLEAR DETAIL Y COMO APLICARLO, SIRVE PARA QUE AL ENTRAR AL DETALLE DE UN PERRO Y VOLVER AL HOME, EL DETALLE NO QUEDE GUARDADO EN SEGUANDO PLANO, ASI AL VOLVER A INGRESAR AL DETALLE DE OTRO PERRO NO SIGA MOSTRANDO EL DEL ANTERIOR. ESTO ES UNA ACTION
+  // const histori = useNavigate();
+
+  // const handlerExit = () => {
+  //   dispatch(CleanDetail());
+  //   histori("/home");
+  // };
 
   return (
     <div className="home">
