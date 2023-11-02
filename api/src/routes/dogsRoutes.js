@@ -13,6 +13,8 @@ const dogsRouter = Router();
 
 dogsRouter.get("/", getAllDogs);
 
+dogsRouter.get("/:name", getAllDogs);
+
 dogsRouter.get("/:id", getDogById);
 
 dogsRouter.post("/", createDog);

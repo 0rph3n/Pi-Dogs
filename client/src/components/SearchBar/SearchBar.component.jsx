@@ -1,12 +1,13 @@
-import React from "react";
 import "./SearchBar.styles.css";
 
-function SearchBar() {
+function SearchBar({ handleChange, handleSubmit }) {
   return (
     <div className="container">
-      <form action="">
-        <input placeholder="Busqueda" type="text" className="search" />
-        <button className="butonSearch">Buscar</button>
+      <form onChange={handleChange}>
+        <input placeholder="Busqueda" type="search" className="search" />
+        <button type="submit" className="butonSearch" onClick={handleSubmit}>
+          Buscar
+        </button>
       </form>
     </div>
   );

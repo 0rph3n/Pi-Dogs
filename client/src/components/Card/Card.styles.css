@@ -1,7 +1,8 @@
 .tarjeta{
   display: flex;
   flex-direction: column;
-  /* width: fit-content; */
+  width:min-content;
+  height: min-content;
   background-color: #B3D92B;
   padding: 25px;
   border-radius: 10px;
@@ -12,4 +13,11 @@
 }
 .tarjeta:hover{
   transform: scale(1.05);
+}
+.tarjeta img{
+  margin: 5px;
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  border: 3px solid #FFC72C;
 }

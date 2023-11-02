@@ -18,7 +18,7 @@ const getDogsApi = async () => {
         height: dog.height.metric,
         weight: dog.weight.metric,
         life_span: dog.life_span,
-        temperament: dog.temperament,
+        temperament: dog.temperament ? dog.temperament.split(", ") : [],
         created: false,
       };
     });

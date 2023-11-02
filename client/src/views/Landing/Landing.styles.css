@@ -1,0 +1,15 @@
+.boton{
+  background-image: url(../../assets/job562-nunoon-10.jpg);
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.boton button{
+  padding:10px 20px;
+  font-size: 16px;
+}

@@ -3,7 +3,7 @@ import SearchBar from "../SearchBar/SearchBar.component";
 import "./Navbar.styles.css";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ handleChange, handleSubmit }) {
   return (
     <nav className="navbar">
       <div className="links">
@@ -11,7 +11,7 @@ function Navbar() {
         <Link to="/dogs/:id">Detail</Link>
         <Link to="/create">Crear Perro</Link>
       </div>
-      <SearchBar />
+      <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
     </nav>
   );
 }

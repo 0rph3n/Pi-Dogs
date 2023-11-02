@@ -6,6 +6,7 @@ function PageNotFound() {
   return (
     <div>
       <Navbar />
+      <p>PAGINA NO ENCONTRADA</p>
     </div>
   );
 }
