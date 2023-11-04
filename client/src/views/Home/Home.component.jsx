@@ -12,6 +12,15 @@ function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
   const [searchString, setSearchString] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dogsPerPage, setDogsPerPage] = useState(8);
+  const indexOfLastDog = currentPage * dogsPerPage;
+  const indexOfFirstDog = indexOfLastDog - dogsPerPage;
+  const currentsDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   //*Filtro por nombre
 
@@ -42,8 +51,13 @@ function Home() {
       <h1 className="titulo">Api Dogs</h1>
       <Navbar handleChange={handleChange} handleSubmit={handleSubmit} />
       <Filters />
-      <Cards allDogs={allDogs} />
-      <Paginado />
+      <Cards currentsDogs={currentsDogs} />
+      <Paginado
+        dogsPerPage={dogsPerPage}
+        allDogs={allDogs.length}
+        paginado={paginado}
+        currentPage={currentPage}
+      />
     </div>
   );
 }

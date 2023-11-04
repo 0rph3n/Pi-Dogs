@@ -1,8 +1,8 @@
 import Card from "../Card/Card.component";
 import "./Cards.styles.css";
 
-function Cards({ allDogs }) {
-  const dogsList = allDogs;
+function Cards({ currentsDogs }) {
+  const dogsList = currentsDogs;
 
   return (
     <div className="tarjetas">

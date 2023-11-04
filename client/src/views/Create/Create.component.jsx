@@ -11,7 +11,6 @@ function Create() {
       <p>Esto es el create</p>
       <Navbar />
       <Form />
-      <Card />
     </div>
   );
 }
