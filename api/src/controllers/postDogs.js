@@ -1,10 +1,10 @@
 const { Dog, Temperament } = require("../db");
 
 const postDogs = async (req) => {
-  const { name, height, weight, life_span, temperaments } = req.body;
+  const { name, height, weight, life_span, temperaments, image } = req.body;
   //?Verifico que todos los campos esten completados caso contrario devuelvo un error
   try {
-    if (!name || !height || !weight || !life_span) {
+    if (!name || !height || !weight || !life_span || !image) {
       throw new Error("Faltan datos para crear un perro");
     }
     //?Creo el nuevo perro con los datos obtenidos
@@ -13,6 +13,7 @@ const postDogs = async (req) => {
       height,
       weight,
       life_span,
+      image,
     });
     //?Manejo los temperamentos que me llegan y los formateo, si algún temperamento no existe lo creo.
     const temperamentsNames = temperaments
@@ -34,6 +35,7 @@ const postDogs = async (req) => {
       height: newDog.height,
       weight: newDog.weight,
       life_span: newDog.life_span,
+      image: newDog.image,
       temperament: allTemperament.map(([temperament]) => temperament.name),
     };
     return finalDog;
