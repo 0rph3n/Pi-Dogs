@@ -8,7 +8,6 @@ function Navbar({ handleChange, handleSubmit }) {
     <nav className="navbar">
       <div className="links">
         <Link to="/home">Home</Link>
-        <Link to="/dogs/:id">Detail</Link>
         <Link to="/create">Crear Perro</Link>
       </div>
       <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />

@@ -10,5 +10,13 @@
   width: 90vw;
   margin: 0 auto;
 }
-.links{
+.links {
+  display: flex;
+  margin-left: 20px;
+  font-weight: bold;
+}
+.links a{
+  text-decoration: none;
+  margin-right: 10px;
+  color: inherit;
 }

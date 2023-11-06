@@ -5,10 +5,11 @@ function Card({ dog }) {
   const { id, name, temperament, weight, image } = dog;
   return (
     <div className="tarjeta">
-      <Link to={`/dogs/${id}`}>
+      <Link to={`/dogs/${id}`} className="link">
         <h2>{name}</h2>
-        <p>{temperament.join(", ")}</p>
-        <p>{weight}</p>
+        <p>Temperaments: {temperament.join(", ")}</p>
+        <p>Min Weight: {weight.split("-")[0].trim()}Kg</p>
+        <p>Max Weight: {weight.split("-")[1]}Kg</p>
         <img src={image} alt=""></img>
       </Link>
     </div>

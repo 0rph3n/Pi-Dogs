@@ -7,6 +7,9 @@ export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const TEMPERAMENT_FILTER = "TEMPERAMENT_FILTER";
 export const ORIGIN_FILTER = "ORIGIN_FILTER";
 export const NAME_FILTER = "NAME_FILTER";
+export const WEIGHT_FILTER = "WEIGHT_FILTER";
+export const RESET_FILTERS = "RESET_FILTERS";
+export const CLEAN_DETAIL = "CLEAN_DETAIL";
 
 export function getDogs() {
   return async function (dispatch) {
@@ -49,4 +52,18 @@ export function orderByName(filter) {
     type: NAME_FILTER,
     payload: filter,
   };
+}
+export function orderByWeight(filter) {
+  return {
+    type: WEIGHT_FILTER,
+    payload: filter,
+  };
+}
+export function resetFilters() {
+  return {
+    type: RESET_FILTERS,
+  };
+}
+export function cleanDetail() {
+  return { type: CLEAN_DETAIL };
 }

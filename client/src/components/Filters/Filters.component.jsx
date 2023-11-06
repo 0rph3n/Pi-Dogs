@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Filters.styles.css";
 import {
-  getDogs,
   getTemperaments,
   temperamentsFilter,
   dogByOrigin,
   orderByName,
+  orderByWeight,
+  resetFilters,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,11 +18,6 @@ function Filters({ setCurrentPage, setOrder }) {
     dispatch(getTemperaments());
   }, [dispatch]);
 
-  //*Con esto tengo un boton que resetea los perros y los trae nuevamente.
-  const handleDogs = (e) => {
-    e.preventDefault();
-    dispatch(getDogs);
-  };
   const handleChange = (e) => {
     e.preventDefault();
     if (!e.target.value) return;
@@ -38,6 +34,18 @@ function Filters({ setCurrentPage, setOrder }) {
     setCurrentPage(1);
     setOrder(`Ordenado ${e.target.value}`);
   };
+  const handleOrderWeight = (e) => {
+    e.preventDefault();
+    dispatch(orderByWeight(e.target.value));
+    setCurrentPage(1);
+    setOrder(`Ordenado ${e.target.value}`);
+  };
+  const handleReset = () => {
+    dispatch(resetFilters());
+    setCurrentPage(1);
+    setOrder(``);
+  };
+
   return (
     <div>
       <select onChange={handleChange}>
@@ -54,18 +62,16 @@ function Filters({ setCurrentPage, setOrder }) {
         <option value="api">Api</option>
       </select>
       <select onChange={handleOrderName}>
+        <option value="all">Ordenar Alfabeticamente</option>
         <option value="Az">A-Z</option>
         <option value="Za">Z-A</option>
       </select>
-      <button name="maxWeight">Mayor Peso</button>
-      <button name="minWieght">Menor Peso</button>
-      <button
-        onClick={(e) => {
-          handleDogs(e);
-        }}
-      >
-        Reset Dogs
-      </button>
+      <select onChange={handleOrderWeight}>
+        <option value="all">Ordenar por Peso</option>
+        <option value="maxWeight">Mayor Peso</option>
+        <option value="minWeight">Menor Peso</option>
+      </select>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 }

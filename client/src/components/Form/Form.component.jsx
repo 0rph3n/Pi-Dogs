@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./Form.styles.css";
 import validations from "../validations/validations";
 
+
+//! CORROBORAR QUE ESTE COLOCANDO PRIMERO EL PESO MENOR Y LUEGO EL PESO MAYOR, LO MISMO CON LA ALTURA.
+
 function Form() {
   const [input, setInput] = useState({
     name: "",

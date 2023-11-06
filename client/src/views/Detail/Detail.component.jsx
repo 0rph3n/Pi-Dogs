@@ -3,8 +3,8 @@ import Navbar from "../../components/Navbar/Navbar.component";
 import "./Detail.styles.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getDogDetail } from "../../redux/actions";
+import { useNavigate, useParams } from "react-router-dom";
+import { getDogDetail, cleanDetail } from "../../redux/actions";
 
 function Detail() {
   const { id } = useParams();
@@ -15,16 +15,24 @@ function Detail() {
     dispatch(getDogDetail(id));
   }, [dispatch, id]); //*Este es el array de dependencias de los hooks, este array contiene todas las dependencias que el hook debe tener en cuenta para su ejecución, le paso dispatch y id ya que puedo volver a solicitar el detail de otro perro lo que genera un nuevo dispatch y el id tambien va cambiar.
 
+  const back = useNavigate();
+
+  const handleDetail = () => {
+    dispatch(cleanDetail());
+    back("/home");
+  };
+
   return (
     <div>
-      <p>Esto es detail</p>
+      <h2>Esto es detail</h2>
       <Navbar />
-      <h1>Nombre: {dogById.name}</h1>
-      <h2>Id: {dogById.id}</h2>
-      <h2>Temperamento: {dogById.temperament}</h2>
-      <h2>Peso: {dogById.weight}Kg</h2>
-      <h2>Altura: {dogById.height}cm</h2>
-      <h2>Tiempo de vida: {dogById.life_span}</h2>
+      <button onClick={handleDetail}>Back</button>
+      <h3>Nombre: {dogById.name}</h3>
+      <h4>Id: {dogById.id}</h4>
+      <h4>Temperamento: {dogById.temperament}</h4>
+      <h4>Peso: {dogById.weight}Kg</h4>
+      <h4>Altura: {dogById.height}cm</h4>
+      <h4>Tiempo de vida: {dogById.life_span}</h4>
       <img src={dogById.image} alt=""></img>
     </div>
   );

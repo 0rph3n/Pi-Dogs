@@ -7,6 +7,9 @@ import {
   TEMPERAMENT_FILTER,
   ORIGIN_FILTER,
   NAME_FILTER,
+  WEIGHT_FILTER,
+  RESET_FILTERS,
+  CLEAN_DETAIL,
 } from "../actions";
 
 //?Alldogs se utiliza para traer todos los perros, dogsCopy es una copia del estado original para modificarlo en los filtros.
@@ -70,28 +73,67 @@ function rootReducer(state = initialState, action) {
       };
     case NAME_FILTER:
       let sortedDogs =
-        action.payload === "Az"
+        action.payload === "Za"
           ? state.allDogs.sort((a, b) => {
               if (a.name > b.name) {
-                return 1;
+                return -1;
               }
               if (b.name > a.name) {
-                return -1;
+                return 1;
               }
               return 0;
             })
           : state.allDogs.sort((a, b) => {
               if (a.name > b.name) {
-                return -1;
+                return 1;
               }
               if (b.name > a.name) {
-                return 1;
+                return -1;
               }
               return 0;
             });
       return {
         ...state,
         allDogs: sortedDogs,
+      };
+    case WEIGHT_FILTER:
+      let weightDogs =
+        action.payload === "minWeight"
+          ? state.allDogs.sort((a, b) => {
+              const dogA = parseInt(a.weight.split("-")[0], 10);
+              const dogB = parseInt(b.weight.split("-")[0], 10);
+              if (dogA > dogB) {
+                return 1;
+              }
+              if (dogB > dogA) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.allDogs.sort((a, b) => {
+              const dogA = parseInt(a.weight.split("-")[1], 10);
+              const dogB = parseInt(b.weight.split("-")[1], 10);
+              if (dogA > dogB) {
+                return -1;
+              }
+              if (dogB > dogA) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        allDogs: weightDogs,
+      };
+    case RESET_FILTERS:
+      window.location.reload();
+      return {
+        state,
+      };
+    case CLEAN_DETAIL:
+      return {
+        ...state,
+        dogDetail: {},
       };
     default:
       return state;
