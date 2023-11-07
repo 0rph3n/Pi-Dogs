@@ -10,6 +10,7 @@ import {
   WEIGHT_FILTER,
   RESET_FILTERS,
   CLEAN_DETAIL,
+  POST_DOG,
 } from "../actions";
 
 //?Alldogs se utiliza para traer todos los perros, dogsCopy es una copia del estado original para modificarlo en los filtros.
@@ -134,6 +135,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         dogDetail: {},
+      };
+    case POST_DOG:
+      return {
+        ...state,
       };
     default:
       return state;

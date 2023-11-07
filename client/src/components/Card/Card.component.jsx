@@ -10,7 +10,14 @@ function Card({ dog }) {
         <p>Temperaments: {temperament.join(", ")}</p>
         <p>Min Weight: {weight.split("-")[0].trim()}Kg</p>
         <p>Max Weight: {weight.split("-")[1]}Kg</p>
-        <img src={image} alt=""></img>
+        {image ? (
+          <img src={image} alt=""></img>
+        ) : (
+          <img
+            src="https://res.cloudinary.com/dzdgpwtox/image/upload/w_600,c_scale,f_auto,q_auto/v1622293248/designer-tool-uploads/bucket_4052/1622293241335.png"
+            alt=""
+          ></img>
+        )}
       </Link>
     </div>
   );

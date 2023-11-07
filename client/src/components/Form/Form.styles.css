@@ -1,0 +1,7 @@
+.temperamentsContainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+.temperamentsStyles {
+  margin-right: 10px;
+}
