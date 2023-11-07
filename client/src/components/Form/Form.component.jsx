@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./Form.styles.css";
 import validations from "../validations/validations";
-import { getTemperaments } from "../../redux/actions";
+import { getTemperaments, postDog } from "../../redux/actions";
 
 function Form() {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
+  const navigate = useNavigate();
+  const [selects, setSelects] = useState([
+    { id: 0, selectedTemperament: "all" },
+  ]);
 
   const [input, setInput] = useState({
     name: "",
@@ -16,10 +21,11 @@ function Form() {
     weightMax: "",
     life_span: "",
     temperaments: [],
+    newTemperament: "",
     image: "",
     createInDb: true,
   });
-
+  console.log(input);
   const [error, setError] = useState({
     name: "",
     heightMin: "",
@@ -28,6 +34,7 @@ function Form() {
     weightMax: "",
     life_span: "",
     temperaments: [],
+    newTemperament: "",
     image: "",
   });
 
@@ -42,21 +49,59 @@ function Form() {
     });
     setError(validations({ ...input, [e.target.name]: e.target.value }));
   };
-  const handleCheck = (e) => {
-    if (e.target.checked) {
+
+  const handleAddSelect = () => {
+    const newIndex = selects.length;
+    setSelects([...selects, { id: newIndex, selectedTemperament: "all" }]);
+  };
+
+  const handleSelectChange = (selectId, selectedValue) => {
+    const updatedSelects = selects.map((select) =>
+      select.id === selectId
+        ? { ...select, selectedTemperament: selectedValue }
+        : select
+    );
+    setSelects(updatedSelects);
+
+    const selectedTemperaments = updatedSelects
+      .map((select) => select.selectedTemperament)
+      .filter((t) => t !== "all");
+
+    setInput({
+      ...input,
+      temperaments: selectedTemperaments,
+    });
+  };
+
+  const handleAddNewTemperament = () => {
+    if (input.newTemperament.trim() !== "") {
       setInput({
         ...input,
-        temperaments: [...input.temperaments, e.target.value],
+        temperaments: [...input.temperaments, input.newTemperament],
+        newTemperament: "",
       });
     }
   };
-  const handleTemp = (e) => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(input);
+    if (!Object.entries(error).length) dispatch(postDog(input));
+    alert("Tu perro se creo con exito!");
     setInput({
-      ...input,
-      temperaments: [...input.temperaments, e.target.value],
+      name: "",
+      heightMin: "",
+      heightMax: "",
+      weightMin: "",
+      weightMax: "",
+      life_span: "",
+      temperaments: [],
+      newTemperament: "",
+      image: "",
+      createInDb: true,
     });
+    navigate(`/home`);
   };
-  const handleSubmit = async () => {};
 
   return (
     <div>
@@ -118,26 +163,34 @@ function Form() {
           <span>{error.weightMax}</span>
         </div>
         <div>
-          <label>Seleccionar temperamentos o crea uno nuevo</label>
-          <div className="temperamentsContainer">
-            {temperaments.map((t) => (
-              <div key={t.id} className="temperamentsStyles">
-                <label>{t.name}</label>
-                <input
-                  type="checkbox"
-                  name="temperament"
-                  value={t.id}
-                  onChange={handleCheck}
-                />
-              </div>
-            ))}
-          </div>
+          <label>Seleccionar temperamentos</label>
+          <button type="button" onClick={handleAddSelect}>
+            +
+          </button>
+          {selects.map((select) => (
+            <div key={select.id}>
+              <select
+                value={select.selectedTemperament}
+                onChange={(e) => handleSelectChange(select.id, e.target.value)}
+              >
+                <option value="all">Todos los Temperamentos</option>
+                {temperaments.map((t) => (
+                  <option key={t.id} value={t.name}>
+                    {t.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
           <input
-            name="temperament"
-            value={input.temperaments}
-            onChange={handleTemp}
+            name="newTemperament"
+            value={input.newTemperament}
+            onChange={handleChange}
             placeholder="Crea un temperamento"
           />
+          <button type="button" onClick={handleAddNewTemperament}>
+            Añadir Temperamento
+          </button>
           <span>{error.temperaments}</span>
         </div>
         <div>

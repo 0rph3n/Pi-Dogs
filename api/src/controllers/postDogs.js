@@ -1,7 +1,18 @@
 const { Dog, Temperament } = require("../db");
 
 const postDogs = async (req) => {
-  const { name, height, weight, life_span, temperaments, image } = req.body;
+  const {
+    name,
+    heightMin,
+    heightMax,
+    weightMin,
+    weightMax,
+    life_span,
+    temperaments,
+    image,
+  } = req.body;
+  const height = heightMin + " - " + heightMax;
+  const weight = weightMin + " - " + weightMax;
   //?Verifico que todos los campos esten completados caso contrario devuelvo un error
   try {
     if (!name || !height || !weight || !life_span || !image) {
@@ -16,9 +27,7 @@ const postDogs = async (req) => {
       image,
     });
     //?Manejo los temperamentos que me llegan y los formateo, si algún temperamento no existe lo creo.
-    const temperamentsNames = temperaments
-      .split(", ")
-      .map((temp) => temp.trim());
+    const temperamentsNames = temperaments.map((temp) => temp.trim());
     const allTemperament = await Promise.all(
       temperamentsNames.map((t) =>
         Temperament.findOrCreate({ where: { name: t } })

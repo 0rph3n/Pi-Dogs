@@ -25,8 +25,8 @@ export default function validations(input) {
   if (input.weightMin > input.weightMax) {
     error.weightMin = "El peso minimo no puede ser mayor al peso maximo";
   }
-  if (!input.temperament.length) {
-    error.temperament = "Selecciona o crea al menos un temperamento";
+  if (input.temperaments.length === 0) {
+    error.temperaments = "Debe seleccionar al menos un temperamento";
   }
   if (
     !/^(?:(?:https?|ftp):\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+[^\s]*$/i.test(
