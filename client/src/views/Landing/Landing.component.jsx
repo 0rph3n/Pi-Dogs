@@ -7,6 +7,7 @@ import linkedIn from "../../assets/icons8-linkedin---in-logo-used-for-profession
 export default function Landing() {
   return (
     <div className="landingContainer">
+      <h2>Bienvenidos al Pi Dogs</h2>
       <div className="boton">
         <Link to="/home">
           <button>Home</button>
