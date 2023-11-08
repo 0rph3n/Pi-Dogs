@@ -52,7 +52,7 @@ export function deleteDog(id) {
       await axios.delete(`http://localhost:3001/${id}`);
       return dispatch({ type: DELETE_DOG, payload: id });
     } catch (error) {
-      throw new Error("Error al borrar el perro: ", error);
+      alert("No se pudo borrar el perro");
     }
   };
 }

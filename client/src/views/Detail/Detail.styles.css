@@ -52,3 +52,18 @@ h2{
     box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
     border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
+.buttonDelete {
+  align-self: flex-end;
+  background: transparent;
+  padding: 0.5rem 0.5rem;
+  margin: 0 2rem;
+  margin-top: 1.5rem;
+  transition: all 0.5s ease;
+  color: #41403E;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
