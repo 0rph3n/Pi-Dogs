@@ -5,7 +5,7 @@ import notFoundImage from "../../assets/error-404-sticker.png";
 function PageNotFound() {
   return (
     <div>
-      <img src={notFoundImage} alt="" />
+      <img src={notFoundImage} alt="Dog Not Found" />
     </div>
   );
 }

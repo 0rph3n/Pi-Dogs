@@ -1,21 +1,24 @@
-.boton{
+.landingContainer{
   background-image: url(../../assets/job562-nunoon-10.jpg);
   background-size:cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 .boton button{
-  /* padding:10px 20px;
-  font-size: 16px; */
+  cursor: pointer;
+  padding:10px 20px;
+  font-size: 16px;
   align-self: center;
   background: transparent;
   padding: 1rem 1rem;
   margin: 0 1rem;
+  margin-top: 100px;
   transition: all 0.5s ease;
   color: #41403E;
   font-size: 2rem;
@@ -27,4 +30,15 @@
 .boton button:hover {
   box-shadow: 2px 8px 4px -6px rgba(0, 0, 0, 0.3);
 }
-
+.iconos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.iconos img {
+  width: 40px;
+}
+.iconos a {
+  margin: 0 10px;
+}
