@@ -17,12 +17,12 @@ function Detail() {
 
   const back = useNavigate();
 
-  const handleDelete = () => {
-    console.log(id);
-    dispatch(deleteDog(id));
-    alert("Perro eliminado con exito");
-    back("/home");
-  };
+  // const handleDelete = () => {
+  //   console.log(id);
+  //   dispatch(deleteDog(id));
+  //   alert("Perro eliminado con exito");
+  //   back("/home");
+  // };
 
   const handleDetail = () => {
     dispatch(cleanDetail());
@@ -38,13 +38,13 @@ function Detail() {
       </button>
       <div className="tarjetaDetail">
         {dogById.created && (
-          <button type="button" onClick={handleDelete} className="buttonDelete">
+          <button type="button"  className="buttonDelete">
             Eliminar Perro
           </button>
         )}
         <h3>Nombre: {dogById.name}</h3>
         <h4>Id: {dogById.id}</h4>
-        <h4>Temperamento: {dogById.temperament.join(", ")}</h4>
+        <h4>Temperamento: {dogById.temperament}</h4>
         <h4>Peso: {dogById.weight}Kg</h4>
         <h4>Altura: {dogById.height}cm</h4>
         <h4>Tiempo de vida: {dogById.life_span}</h4>
