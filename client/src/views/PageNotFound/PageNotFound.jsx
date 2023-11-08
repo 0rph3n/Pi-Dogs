@@ -1,12 +1,11 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar.component";
 import "./PageNotFound.styles.css";
+import notFoundImage from "../../assets/error-404-sticker.png";
 
 function PageNotFound() {
   return (
     <div>
-      <Navbar />
-      <p>PAGINA NO ENCONTRADA</p>
+      <img src={notFoundImage} alt="" />
     </div>
   );
 }

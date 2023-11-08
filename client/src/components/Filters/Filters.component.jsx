@@ -47,7 +47,7 @@ function Filters({ setCurrentPage, setOrder }) {
   };
 
   return (
-    <div>
+    <div className="filters">
       <select onChange={handleChange}>
         <option value="all">Todos los Temperamentos</option>
         {temperaments.map((t) => (

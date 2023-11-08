@@ -1,5 +1,4 @@
 const { Router } = require("express");
-//Importamos los controllers de cada ruta
 const getTemperaments = require("../controllers/getTemperaments");
 
 const temperamentsRouter = Router();

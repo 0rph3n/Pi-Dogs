@@ -10,8 +10,8 @@
   display: flex;
   flex-direction: column;
   width:min-content;
-  height: min-content;
-  background-color: #B3D92B;
+  height:600px; 
+  background-color: #f8e9c5;
   padding: 25px;
   border-radius: 10px;
   -moz-osx-font-smoothing: grayscale;
@@ -30,5 +30,5 @@
   width: 300px;
   height: 300px;
   border-radius: 10px;
-  border: 3px solid #FFC72C;
+  border: 3px solid #d4a373;
 }

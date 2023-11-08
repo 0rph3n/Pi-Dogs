@@ -1,18 +1,27 @@
 .page {
-  bottom: 20px; /* Ajusta la distancia desde la parte inferior */
+  bottom: 20px;
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Margen superior para separar del contenido */
+  margin-top: 20px;
+  margin-bottom: 10px;
   list-style: none;
 }
 .pagenumber {
-  font-size: 16px;
+  font-size: 15px;
+  font-weight:500 ;
   display: flex;
   justify-content: center;
   width: auto;
   margin: 3px;
-  border: 2px solid #000000; 
-  background: #2e2e2e;
-  color: #FFC72C;
+  border: 2px solid #c5cfa3; 
+  background: #d3d8ac;
+  color: black;
   border-radius: 5px;
+}
+.pagenumber:visited{
+  color: inherit;
+}
+.linkPage {
+  text-decoration: none;
+  cursor: pointer;
 }

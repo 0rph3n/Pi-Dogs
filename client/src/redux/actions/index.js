@@ -11,6 +11,7 @@ export const WEIGHT_FILTER = "WEIGHT_FILTER";
 export const RESET_FILTERS = "RESET_FILTERS";
 export const CLEAN_DETAIL = "CLEAN_DETAIL";
 export const POST_DOG = "POST_DOG";
+export const DELETE_DOG = "DELETE_DOG";
 
 export function getDogs() {
   return async function (dispatch) {
@@ -43,6 +44,16 @@ export function getTemperaments() {
   return async function (dispatch) {
     const response = await axios.get(`http://localhost:3001/temperaments`);
     return dispatch({ type: GET_TEMPERAMENTS, payload: response.data });
+  };
+}
+export function deleteDog(id) {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`http://localhost:3001/${id}`);
+      return dispatch({ type: DELETE_DOG, payload: id });
+    } catch (error) {
+      throw new Error("Error al borrar el perro: ", error);
+    }
   };
 }
 export function temperamentsFilter(filter) {

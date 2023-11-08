@@ -8,7 +8,7 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.use("/dogs", dogsRouter); //llamo a mi controller que me trae todos los perros dentro de mi bd y mi api al hacer un get a la ruta dogs
+router.use("/dogs", dogsRouter);
 router.use("/temperaments", temperamentsRouter);
 router.use("/", (req, res) => {
   res.send("Bienvenidos a mi Dog API");

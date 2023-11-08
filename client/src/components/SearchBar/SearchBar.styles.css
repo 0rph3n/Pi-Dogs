@@ -11,10 +11,10 @@
   outline: 0;
 }
 .butonSearch {
-  color: white;
+  color: black;
   height: 25px;
   border: 0;
   border-radius: 0 10px 10px 0;
-  background-color:#F23D6D;
+  background-color:#afb98d;
   margin-right: 10px;
 }

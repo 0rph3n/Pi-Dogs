@@ -1,7 +1,61 @@
-.temperamentsContainer{
-  display: flex;
-  flex-wrap: wrap;
+.formulario{
+  margin-top: 30px;
+  font-size: 20px;
 }
-.temperamentsStyles {
-  margin-right: 10px;
+.divContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.divContainerTemps{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.formulario input {
+  align-self: center;
+  background: transparent;
+  padding: 0.5rem 5rem;
+  margin: auto;
+  transition: all 0.5s ease;
+  color: #41403E;
+  font-size:  0.8rem;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
+.formulario select {
+  align-self: center;
+  background: transparent;
+  padding: 0.5rem 0.5rem;
+  margin: auto;
+  transition: all 0.5s ease;
+  color: #41403E;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  background-color: #faedcd;
+}
+.botonTemp {
+  align-self: center;
+  background: transparent;
+  padding: 0.5rem 0.5rem;
+  margin: 10px;
+  transition: all 0.5s ease;
+  color: #41403E;
+  font-size:  0.8rem;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
+.error{
+  font-size: 15px;
+  color: red
 }

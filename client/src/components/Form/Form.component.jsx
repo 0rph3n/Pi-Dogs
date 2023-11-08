@@ -26,17 +26,8 @@ function Form() {
     createInDb: true,
   });
   console.log(input);
-  const [error, setError] = useState({
-    name: "",
-    heightMin: "",
-    heightMax: "",
-    weightMin: "",
-    weightMax: "",
-    life_span: "",
-    temperaments: [],
-    newTemperament: "",
-    image: "",
-  });
+
+  const [error, setError] = useState({});
 
   useEffect(() => {
     dispatch(getTemperaments());
@@ -56,21 +47,36 @@ function Form() {
   };
 
   const handleSelectChange = (selectId, selectedValue) => {
-    const updatedSelects = selects.map((select) =>
-      select.id === selectId
-        ? { ...select, selectedTemperament: selectedValue }
-        : select
-    );
-    setSelects(updatedSelects);
+    if (
+      selects.every(
+        (select) =>
+          select.id === selectId || select.selectedTemperament !== selectedValue
+      )
+    ) {
+      const updatedSelects = selects.map((select) =>
+        select.id === selectId
+          ? { ...select, selectedTemperament: selectedValue }
+          : select
+      );
+      setSelects(updatedSelects);
 
-    const selectedTemperaments = updatedSelects
-      .map((select) => select.selectedTemperament)
-      .filter((t) => t !== "all");
+      const selectedTemperaments = updatedSelects
+        .map((select) => select.selectedTemperament)
+        .filter((t) => t !== "all");
 
-    setInput({
-      ...input,
-      temperaments: selectedTemperaments,
-    });
+      setInput({
+        ...input,
+        temperaments: selectedTemperaments,
+      });
+      setError(validations({ ...input, [e.target.name]: e.target.value }));
+    } else {
+      // Display an error message or handle the duplicate selection as per your requirements
+      setError({
+        ...error,
+        duplicateTemperament: "Duplicate temperament selection is not allowed.",
+      });
+      console.log("Duplicate temperament selection not allowed");
+    }
   };
 
   const handleAddNewTemperament = () => {
@@ -105,18 +111,18 @@ function Form() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="formulario">
+        <div className="divContainer">
           <label>Raza</label>
           <input
             name="name"
             value={input.name}
-            placeholder="Ingresa la raza de su perro"
+            placeholder="Ingresa la raza"
             onChange={handleChange}
           />
-          <span>{error.name}</span>
+          <span className="error">{error.name}</span>
         </div>
-        <div>
+        <div className="divContainer">
           <label>Espectativa de Vida</label>
           <input
             name="life_span"
@@ -124,9 +130,9 @@ function Form() {
             placeholder="Ingrese un número"
             onChange={handleChange}
           />
-          <span>{error.life_span}</span>
+          <span className="error">{error.life_span}</span>
         </div>
-        <div>
+        <div className="divContainer">
           <label>Altura minima</label>
           <input
             name="heightMin"
@@ -134,6 +140,7 @@ function Form() {
             placeholder="Ingrese un número"
             onChange={handleChange}
           />
+          <span className="error">{error.heightMin}</span>
           <label>Altura maxima</label>
           <input
             name="heightMax"
@@ -141,10 +148,9 @@ function Form() {
             placeholder="Ingrese un número"
             onChange={handleChange}
           />
-          <span>{error.heightMin}</span>
-          <span>{error.heightMax}</span>
+          <span className="error">{error.heightMax}</span>
         </div>
-        <div>
+        <div className="divContainer">
           <label>Peso minimo</label>
           <input
             name="weightMin"
@@ -152,6 +158,7 @@ function Form() {
             placeholder="Ingrese un número"
             onChange={handleChange}
           />
+          <span className="error">{error.weightMin}</span>
           <label>Peso maximo</label>
           <input
             name="weightMax"
@@ -159,12 +166,16 @@ function Form() {
             placeholder="Ingrese un número"
             onChange={handleChange}
           />
-          <span>{error.weightMin}</span>
-          <span>{error.weightMax}</span>
+          <span className="error">{error.weightMax}</span>
         </div>
-        <div>
+        <div className="divContainer">
+          <label>Url imagen</label>
+          <input name="image" value={input.image} onChange={handleChange} />
+          <span className="error">{error.image}</span>
+        </div>
+        <div className="divContainerTemps">
           <label>Seleccionar temperamentos</label>
-          <button type="button" onClick={handleAddSelect}>
+          <button type="button" onClick={handleAddSelect} className="botonTemp">
             +
           </button>
           {selects.map((select) => (
@@ -172,6 +183,7 @@ function Form() {
               <select
                 value={select.selectedTemperament}
                 onChange={(e) => handleSelectChange(select.id, e.target.value)}
+                className="selectTemps"
               >
                 <option value="all">Todos los Temperamentos</option>
                 {temperaments.map((t) => (
@@ -188,17 +200,19 @@ function Form() {
             onChange={handleChange}
             placeholder="Crea un temperamento"
           />
-          <button type="button" onClick={handleAddNewTemperament}>
+          <button
+            type="button"
+            onClick={handleAddNewTemperament}
+            className="botonTemp"
+          >
             Añadir Temperamento
           </button>
-          <span>{error.temperaments}</span>
+          {error.duplicateTemperament && (
+            <div className="error">{error.duplicateTemperament}</div>
+          )}
+          <span className="error">{error.temperaments}</span>
         </div>
-        <div>
-          <label>Url imagen</label>
-          <input name="image" value={input.image} onChange={handleChange} />
-          <span>{error.image}</span>
-        </div>
-        <div>
+        <div className="divContainer">
           {Object.values(error).every((errorMessage) => errorMessage === "") &&
             input.name.trim() !== "" &&
             input.heightMin.trim() !== "" &&
@@ -206,7 +220,11 @@ function Form() {
             input.weightMin.trim() !== "" &&
             input.weightMax.trim() !== "" &&
             input.life_span.trim() !== "" &&
-            input.image.trim() !== "" && <button type="submit">Crear</button>}
+            input.image.trim() !== "" && (
+              <button type="submit" className="botonTemp">
+                Crear
+              </button>
+            )}
         </div>
       </form>
     </div>

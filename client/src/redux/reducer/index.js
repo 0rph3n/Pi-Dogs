@@ -11,6 +11,7 @@ import {
   RESET_FILTERS,
   CLEAN_DETAIL,
   POST_DOG,
+  DELETE_DOG,
 } from "../actions";
 
 //?Alldogs se utiliza para traer todos los perros, dogsCopy es una copia del estado original para modificarlo en los filtros.
@@ -58,7 +59,7 @@ function rootReducer(state = initialState, action) {
           ...state,
           filter: action.payload,
           allDogs: state.dogsCopy.filter((d) => {
-            return d.temperament.includes(action.payload); //*Filtro los perros buscando que en cada perro se incluya el temperamento que me llega por payload.
+            return d.temperament.includes(action.payload);
           }),
         };
       }
@@ -140,6 +141,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case DELETE_DOG:
+      const updatedDogs = state.dogsCopy.filter(
+        (dog) => dog.id !== action.payload
+      );
+      return { ...state, allDogs: updatedDogs };
     default:
       return state;
   }

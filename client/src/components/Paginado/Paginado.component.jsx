@@ -25,7 +25,7 @@ function Paginado({ dogsPerPage, allDogs, paginado, currentPage }) {
         {pageNumbers &&
           pageNumbers.map((number) => (
             <div key={number}>
-              <Link to={number}>
+              <Link to={number} className="linkPage">
                 <button className="pagenumber" onClick={() => paginado(number)}>
                   {number}
                 </button>

@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar.component";
 import Cards from "../../components/Cards/Cards.component";
 import Filters from "../../components/Filters/Filters.component";
 import Paginado from "../../components/Paginado/Paginado.component";
+import PageNotFound from "../PageNotFound/PageNotFound";
 import "./Home.styles.css";
 
 function Home() {
@@ -39,20 +40,16 @@ function Home() {
     dispatch(getDogs());
   }, [dispatch]);
 
-  //!AVERIGUAR SOBRE CLEAR DETAIL Y COMO APLICARLO, SIRVE PARA QUE AL ENTRAR AL DETALLE DE UN PERRO Y VOLVER AL HOME, EL DETALLE NO QUEDE GUARDADO EN SEGUANDO PLANO, ASI AL VOLVER A INGRESAR AL DETALLE DE OTRO PERRO NO SIGA MOSTRANDO EL DEL ANTERIOR. ESTO ES UNA ACTION
-  // const histori = useNavigate();
-
-  // const handlerExit = () => {
-  //   dispatch(CleanDetail());
-  //   histori("/home");
-  // };
-
   return (
     <div className="home">
       <h1 className="titulo">Api Dogs</h1>
       <Navbar handleChange={handleChange} handleSubmit={handleSubmit} />
       <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
-      <Cards currentsDogs={currentsDogs} />
+      {currentsDogs.length === 0 ? (
+        <PageNotFound />
+      ) : (
+        <Cards currentsDogs={currentsDogs} />
+      )}
       <Paginado
         dogsPerPage={dogsPerPage}
         allDogs={allDogs.length}

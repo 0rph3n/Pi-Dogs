@@ -4,7 +4,7 @@ import "./Detail.styles.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getDogDetail, cleanDetail } from "../../redux/actions";
+import { getDogDetail, cleanDetail, deleteDog } from "../../redux/actions";
 
 function Detail() {
   const { id } = useParams();
@@ -17,23 +17,44 @@ function Detail() {
 
   const back = useNavigate();
 
+  const handleDelete = () => {
+    console.log(id);
+    dispatch(deleteDog(id));
+    alert("Perro eliminado con exito");
+    back("/home");
+  };
+
   const handleDetail = () => {
     dispatch(cleanDetail());
     back("/home");
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Esto es detail</h2>
       <Navbar />
-      <button onClick={handleDetail}>Back</button>
-      <h3>Nombre: {dogById.name}</h3>
-      <h4>Id: {dogById.id}</h4>
-      <h4>Temperamento: {dogById.temperament}</h4>
-      <h4>Peso: {dogById.weight}Kg</h4>
-      <h4>Altura: {dogById.height}cm</h4>
-      <h4>Tiempo de vida: {dogById.life_span}</h4>
-      <img src={dogById.image} alt=""></img>
+      <button onClick={handleDetail} className="buttonBack">Back</button>
+      <div className="tarjetaDetail">
+        {dogById.created && (
+          <button type="button" onClick={handleDelete}>
+            Eliminar Perro
+          </button>
+        )}
+        <h3>Nombre: {dogById.name}</h3>
+        <h4>Id: {dogById.id}</h4>
+        <h4>Temperamento: {dogById.temperament}</h4>
+        <h4>Peso: {dogById.weight}Kg</h4>
+        <h4>Altura: {dogById.height}cm</h4>
+        <h4>Tiempo de vida: {dogById.life_span}</h4>
+        {dogById.image ? (
+          <img src={dogById.image} alt=""></img>
+        ) : (
+          <img
+            src="https://res.cloudinary.com/dzdgpwtox/image/upload/w_600,c_scale,f_auto,q_auto/v1622293248/designer-tool-uploads/bucket_4052/1622293241335.png"
+            alt=""
+          ></img>
+        )}
+      </div>
     </div>
   );
 }
