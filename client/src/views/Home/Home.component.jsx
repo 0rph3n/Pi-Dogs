@@ -42,6 +42,7 @@ function Home() {
       <h1 className="titulo">Api Dogs</h1>
       <Navbar handleChange={handleChange} handleSubmit={handleSubmit} />
       <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
+      <p>{order}</p>
       {currentsDogs.length === 0 ? (
         <PageNotFound />
       ) : (

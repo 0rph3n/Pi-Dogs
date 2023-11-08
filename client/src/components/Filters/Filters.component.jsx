@@ -32,13 +32,13 @@ function Filters({ setCurrentPage, setOrder }) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrder(`Ordenado ${e.target.value}`);
+    setOrder(`En orden de ${e.target.value}`);
   };
   const handleOrderWeight = (e) => {
     e.preventDefault();
     dispatch(orderByWeight(e.target.value));
     setCurrentPage(1);
-    setOrder(`Ordenado ${e.target.value}`);
+    setOrder(`En orden de ${e.target.value}`);
   };
   const handleReset = () => {
     dispatch(resetFilters());
