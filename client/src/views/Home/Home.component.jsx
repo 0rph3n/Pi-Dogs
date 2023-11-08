@@ -24,8 +24,6 @@ function Home() {
     setCurrentPage(pageNumber);
   };
 
-  //*Filtro por nombre
-
   function handleChange(e) {
     e.preventDefault();
     setSearchString(e.target.value);
@@ -35,7 +33,6 @@ function Home() {
     dispatch(getDogsByName(searchString));
   }
 
-  //*Dispatch que trae a todos los perros
   useEffect(() => {
     dispatch(getDogs());
   }, [dispatch]);

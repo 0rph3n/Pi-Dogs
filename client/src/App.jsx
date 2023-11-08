@@ -5,7 +5,6 @@ import Home from "./views/Home/Home.component";
 import Detail from "./views/Detail/Detail.component";
 import Create from "./views/Create/Create.component";
 
-//? Se generan las rutas para cada pagina, estas son con exact path para que solo se pueda ingresar si la ruta es correcta
 function App() {
   return (
     <div>

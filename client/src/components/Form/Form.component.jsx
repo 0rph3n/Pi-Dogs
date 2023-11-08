@@ -70,12 +70,10 @@ function Form() {
       });
       setError(validations({ ...input, [e.target.name]: e.target.value }));
     } else {
-      // Display an error message or handle the duplicate selection as per your requirements
       setError({
         ...error,
-        duplicateTemperament: "Duplicate temperament selection is not allowed.",
+        duplicateTemperament: "No se admiten temperamentos duplicados",
       });
-      console.log("Duplicate temperament selection not allowed");
     }
   };
 
@@ -91,7 +89,6 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(input);
     if (!Object.entries(error).length) dispatch(postDog(input));
     alert("Tu perro se creo con exito!");
     setInput({

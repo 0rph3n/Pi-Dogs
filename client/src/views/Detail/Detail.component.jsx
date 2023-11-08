@@ -13,7 +13,7 @@ function Detail() {
 
   useEffect(() => {
     dispatch(getDogDetail(id));
-  }, [dispatch, id]); //*Este es el array de dependencias de los hooks, este array contiene todas las dependencias que el hook debe tener en cuenta para su ejecución, le paso dispatch y id ya que puedo volver a solicitar el detail de otro perro lo que genera un nuevo dispatch y el id tambien va cambiar.
+  }, [dispatch, id]);
 
   const back = useNavigate();
 
@@ -33,7 +33,9 @@ function Detail() {
     <div className="container">
       <h2>Esto es detail</h2>
       <Navbar />
-      <button onClick={handleDetail} className="buttonBack">Back</button>
+      <button onClick={handleDetail} className="buttonBack">
+        Back
+      </button>
       <div className="tarjetaDetail">
         {dogById.created && (
           <button type="button" onClick={handleDelete}>

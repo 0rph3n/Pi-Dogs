@@ -14,8 +14,6 @@ import {
   DELETE_DOG,
 } from "../actions";
 
-//?Alldogs se utiliza para traer todos los perros, dogsCopy es una copia del estado original para modificarlo en los filtros.
-
 let initialState = {
   allDogs: [],
   dogsCopy: [],

@@ -5,9 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store/index.js";
 import { Provider } from "react-redux";
 
-//?Se le brinda a App la habilidad de generar rutas mediante BrowserRouter
-//? Mediante Provider estamos dotando a nuestra App de los estados que se crean en mi store y por ello le pasamos la store como parametro
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <BrowserRouter>

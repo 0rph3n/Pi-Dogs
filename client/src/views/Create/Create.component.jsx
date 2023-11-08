@@ -3,7 +3,6 @@ import Navbar from "../../components/Navbar/Navbar.component";
 import Form from "../../components/Form/Form.component";
 import "./Create.styles.css";
 
-//? El searchbar se va a mostrar en todas las paginas ya que muestra los link
 function Create() {
   return (
     <div>
