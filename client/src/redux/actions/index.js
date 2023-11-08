@@ -15,13 +15,13 @@ export const DELETE_DOG = "DELETE_DOG";
 
 export function getDogs() {
   return async function (dispatch) {
-    const response = await axios.get("http://localhost:3001/dogs");
+    const response = await axios.get("/dogs");
     return dispatch({ type: GET_DOGS, payload: response.data });
   };
 }
 export function postDog(payload) {
   return async function () {
-    const response = await axios.post(`http://localhost:3001/dogs`, payload);
+    const response = await axios.post(`/dogs`, payload);
     console.log(response);
     return response;
   };
@@ -29,27 +29,27 @@ export function postDog(payload) {
 export function getDogsByName(name) {
   return async function (dispatch) {
     const response = await axios.get(
-      `http://localhost:3001/dogs/?name=${name}`
+      `/dogs/?name=${name}`
     );
     return dispatch({ type: GET_DOGS_BY_NAME, payload: response.data });
   };
 }
 export function getDogDetail(id) {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/dogs/${id}`);
+    const response = await axios.get(`/dogs/${id}`);
     return dispatch({ type: GET_DOGS_DETAIL, payload: response.data });
   };
 }
 export function getTemperaments() {
   return async function (dispatch) {
-    const response = await axios.get(`http://localhost:3001/temperaments`);
+    const response = await axios.get(`/temperaments`);
     return dispatch({ type: GET_TEMPERAMENTS, payload: response.data });
   };
 }
 export function deleteDog(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/${id}`);
+      await axios.delete(`/${id}`);
       return dispatch({ type: DELETE_DOG, payload: id });
     } catch (error) {
       alert("No se pudo borrar el perro");
