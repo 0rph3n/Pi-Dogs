@@ -126,9 +126,8 @@ function rootReducer(state = initialState, action) {
         allDogs: weightDogs,
       };
     case RESET_FILTERS:
-      window.location.reload();
       return {
-        state,
+        initialState,
       };
     case CLEAN_DETAIL:
       return {

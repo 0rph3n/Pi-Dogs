@@ -6,7 +6,7 @@ import { store } from "./redux/store/index.js";
 import { Provider } from "react-redux";
 import axios from "axios";
 
-// axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "http://localhost:3001/";
 axios.defaults.baseURL = "https://pi-dogs-production-9b13.up.railway.app/";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

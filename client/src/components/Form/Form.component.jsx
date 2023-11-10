@@ -183,11 +183,13 @@ function Form() {
                 className="selectTemps"
               >
                 <option value="all">Todos los Temperamentos</option>
-                {temperaments.map((t) => (
-                  <option key={t.id} value={t.name}>
-                    {t.name}
-                  </option>
-                ))}
+                {temperaments
+                  ? temperaments.map((t) => (
+                      <option key={t.id} value={t.name}>
+                        {t.name}
+                      </option>
+                    ))
+                  : []}
               </select>
             </div>
           ))}

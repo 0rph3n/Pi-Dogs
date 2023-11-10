@@ -7,6 +7,7 @@ import {
   orderByName,
   orderByWeight,
   resetFilters,
+  getDogs,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,11 +23,15 @@ function Filters({ setCurrentPage, setOrder }) {
     e.preventDefault();
     if (!e.target.value) return;
     dispatch(temperamentsFilter(e.target.value));
+    setCurrentPage(1);
+    setOrder(`En orden de ${e.target.value}`);
   };
 
   const handleFilterCreated = (e) => {
     e.preventDefault();
     dispatch(dogByOrigin(e.target.value));
+    setCurrentPage(1);
+    setOrder(`En orden de ${e.target.value}`);
   };
   const handleOrderName = (e) => {
     e.preventDefault();
@@ -44,17 +49,20 @@ function Filters({ setCurrentPage, setOrder }) {
     dispatch(resetFilters());
     setCurrentPage(1);
     setOrder(``);
+    dispatch(getDogs());
   };
 
   return (
     <div className="filters">
       <select onChange={handleChange}>
         <option value="all">Todos los Temperamentos</option>
-        {temperaments.map((t) => (
-          <option key={t.id} value={t.name}>
-            {t.name}
-          </option>
-        ))}
+        {temperaments
+          ? temperaments.map((t) => (
+              <option key={t.id} value={t.name}>
+                {t.name}
+              </option>
+            ))
+          : []}
       </select>
       <select onChange={handleFilterCreated}>
         <option value="all">Todos los perros</option>
