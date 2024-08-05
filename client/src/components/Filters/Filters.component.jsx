@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./Filters.styles.css";
 import {
   getTemperaments,
@@ -8,15 +8,19 @@ import {
   orderByWeight,
   resetFilters,
   getDogs,
-} from "../../redux/actions";
+} from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 
 function Filters({ setCurrentPage, setOrder }) {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.temperaments);
 
+  const dogs = useSelector((state) => state.allDogs);
+  console.log("perros Filtrados", dogs);
+
   useEffect(() => {
     dispatch(getTemperaments());
+    dispatch(getDogs());
   }, [dispatch]);
 
   const handleChange = (e) => {

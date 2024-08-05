@@ -19,6 +19,7 @@ module.exports = {
         res.status(200).send([...dogApi, ...dogDb]);
       }
     } catch (error) {
+      console.error("Error en getAllDogs:", error.message);
       res
         .status(400)
         .json({ error: "Error al obtener los perros. " + error.message });

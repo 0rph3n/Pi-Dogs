@@ -17,6 +17,7 @@ const postDogs = async (req) => {
     if (!name || !height || !weight || !life_span || !image) {
       throw new Error("Faltan datos para crear un perro");
     }
+    //!CREO LA NUEVA ACTIVIDAD
     const newDog = await Dog.create({
       name,
       height,
@@ -24,13 +25,15 @@ const postDogs = async (req) => {
       life_span,
       image,
     });
+    //!LIMPIO MI ARRAY DE COUNTRIES, BUSCO LOS PAISES QUE ESTAN EN MI ARRAY DENTRO DE MI MODELO DE COUNTRIES
     const temperamentsNames = temperaments.map((temp) => temp.trim());
     const allTemperament = await Promise.all(
       temperamentsNames.map((t) =>
         Temperament.findOrCreate({ where: { name: t } })
       )
     );
-    await newDog.setTemperaments(
+    //!RELACIONO A MI NUEVA ACTIVIDAD CON CADA PAIS QUE TENGO EN MI ARRAY
+    await newDog.setTemperaments( 
       allTemperament.map(([temperament]) => temperament)
     );
     const finalDog = {

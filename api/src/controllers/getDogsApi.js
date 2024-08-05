@@ -22,6 +22,7 @@ const getDogsApi = async () => {
     });
     return apiResponse;
   } catch (error) {
+    console.error("Error en getDogsApi:", error.message);
     throw new Error(
       "No se pudieron obtener los datos de los perros desde mi Api."
     );

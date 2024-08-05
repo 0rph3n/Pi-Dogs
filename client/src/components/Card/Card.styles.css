@@ -1,34 +1,36 @@
-.link{
+.link {
   text-decoration: none;
   color: black;
 }
-.link:visited{
-  color: inherit
-}
 
-.tarjeta{
+.tarjeta {
   display: flex;
   flex-direction: column;
-  width:min-content;
-  height:600px; 
+  width: min-content;
+  height: 600px;
   background-color: #f8e9c5;
   padding: 25px;
   border-radius: 10px;
-  -moz-osx-font-smoothing: grayscale;
-  backface-visibility: hidden;
-  transform: translateZ(0);
   transition: transform 0.25s ease-out;
+  text-align: center;
 }
-.tarjeta:visited{
-  color: inherit;
-}
-.tarjeta:hover{
+
+.tarjeta:hover {
   transform: scale(1.05);
 }
-.tarjeta img{
-  margin: 5px;
+
+
+.imagen-inferior {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: auto;
+}
+
+.imagen-inferior img {
   width: 300px;
   height: 300px;
   border-radius: 10px;
   border: 3px solid #d4a373;
+  margin: 5px;
 }

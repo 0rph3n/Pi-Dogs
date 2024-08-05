@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Form.styles.css";
@@ -25,7 +25,6 @@ function Form() {
     image: "",
     createInDb: true,
   });
-  console.log(input);
 
   const [error, setError] = useState({});
 
@@ -33,12 +32,60 @@ function Form() {
     dispatch(getTemperaments());
   }, []);
 
+  // const handleChange = (e) => {
+  //   setInput({
+  //     ...input,
+  //     [e.target.name]: e.target.value,
+  //   });
+  //   setError(validations({ ...input, [e.target.name]: e.target.value }));
+  // };
   const handleChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    setError(validations({ ...input, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+
+    // Validamos si el valor es un número (excepto si está vacío)
+    if (
+      name === "life_span" ||
+      name === "heightMin" ||
+      name === "heightMax" ||
+      name === "weightMin" ||
+      name === "weightMax"
+    ) {
+      if (value !== "" && !/^\d+$/.test(value)) {
+        setError((prevError) => ({
+          ...prevError,
+          [name]: "Por favor, ingresa un valor numérico.",
+        }));
+        return;
+      }
+    }
+
+    // Actualizamos solo el campo específico que está cambiando
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+
+    // Validamos solo para el campo activo (excepto la validación numérica)
+    setError((prevError) => ({
+      ...prevError,
+      [name]: validations({ ...input, [name]: value })[name],
+      heightMax:
+        name === "heightMax" && value < input.heightMin
+          ? "La altura máxima no puede ser menor que la altura mínima"
+          : "",
+      heightMin:
+        name === "heightMin" && value > input.heightMax
+          ? "La altura mínima no puede ser mayor que la altura máxima"
+          : "",
+      weightMax:
+        name === "weightMax" && value < input.weightMin
+          ? "El peso máximo no puede ser menor que el peso mínimo"
+          : "",
+      weightMin:
+        name === "weightMin" && value > input.weightMax
+          ? "El peso mínimo no puede ser mayor que el peso máximo"
+          : "",
+    }));
   };
 
   const handleAddSelect = () => {
@@ -89,7 +136,7 @@ function Form() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!Object.entries(error).length) dispatch(postDog(input));
+    dispatch(postDog(input));
     alert("Tu perro se creo con exito!");
     setInput({
       name: "",
@@ -130,14 +177,6 @@ function Form() {
           <span className="error">{error.life_span}</span>
         </div>
         <div className="divContainer">
-          <label>Altura minima</label>
-          <input
-            name="heightMin"
-            value={input.heightMin}
-            placeholder="Ingrese un número"
-            onChange={handleChange}
-          />
-          <span className="error">{error.heightMin}</span>
           <label>Altura maxima</label>
           <input
             name="heightMax"
@@ -146,16 +185,16 @@ function Form() {
             onChange={handleChange}
           />
           <span className="error">{error.heightMax}</span>
-        </div>
-        <div className="divContainer">
-          <label>Peso minimo</label>
+          <label>Altura minima</label>
           <input
-            name="weightMin"
-            value={input.weightMin}
+            name="heightMin"
+            value={input.heightMin}
             placeholder="Ingrese un número"
             onChange={handleChange}
           />
-          <span className="error">{error.weightMin}</span>
+          <span className="error">{error.heightMin}</span>
+        </div>
+        <div className="divContainer">
           <label>Peso maximo</label>
           <input
             name="weightMax"
@@ -164,6 +203,14 @@ function Form() {
             onChange={handleChange}
           />
           <span className="error">{error.weightMax}</span>
+          <label>Peso minimo</label>
+          <input
+            name="weightMin"
+            value={input.weightMin}
+            placeholder="Ingrese un número"
+            onChange={handleChange}
+          />
+          <span className="error">{error.weightMin}</span>
         </div>
         <div className="divContainer">
           <label>Url imagen</label>
@@ -172,9 +219,6 @@ function Form() {
         </div>
         <div className="divContainerTemps">
           <label>Seleccionar temperamentos</label>
-          <button type="button" onClick={handleAddSelect} className="botonTemp">
-            +
-          </button>
           {selects.map((select) => (
             <div key={select.id}>
               <select
@@ -193,6 +237,9 @@ function Form() {
               </select>
             </div>
           ))}
+          <button type="button" onClick={handleAddSelect} className="botonTemp">
+            +
+          </button>
           <input
             name="newTemperament"
             value={input.newTemperament}
@@ -212,7 +259,9 @@ function Form() {
           <span className="error">{error.temperaments}</span>
         </div>
         <div className="divContainer">
-          {Object.values(error).every((errorMessage) => errorMessage === "") &&
+          {Object.values(error).every(
+            (errorMessage) => errorMessage === "" || errorMessage === undefined
+          ) &&
             input.name.trim() !== "" &&
             input.heightMin.trim() !== "" &&
             input.heightMax.trim() !== "" &&

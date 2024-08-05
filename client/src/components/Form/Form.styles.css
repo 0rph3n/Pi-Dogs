@@ -1,4 +1,4 @@
-.formulario{
+/* .formulario{
   margin-top: 30px;
   font-size: 20px;
 }
@@ -15,33 +15,41 @@ display: flex;
 flex-direction: column;
 align-items: center;
 }
-.formulario input {
-  align-self: center;
-  background: transparent;
-  padding: 0.5rem 5rem;
-  margin: auto;
-  transition: all 0.5s ease;
-  color: #41403E;
-  font-size:  0.8rem;
-  letter-spacing: 1px;
-  outline: none;
-  box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-}
+*/
+.formulario input,
 .formulario select {
   align-self: center;
   background: transparent;
-  padding: 0.5rem 0.5rem;
+  padding: 0.3rem 0.1rem;
   margin: auto;
   transition: all 0.5s ease;
   color: #41403E;
   font-size: 0.8rem;
-  letter-spacing: 1px;
   outline: none;
   box-shadow: 20px 38px 34px -26px rgba(0, 0, 0, 0.2);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   background-color: #faedcd;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
 }
+
+/* .formulario input,
+.formulario select {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.5rem 1rem;
+  margin: 10px auto;
+  font-size: 0.8rem;
+  color: #41403e;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+} */
+
+/*
 .botonTemp {
   align-self: center;
   background: transparent;
@@ -58,4 +66,59 @@ align-items: center;
 .error{
   font-size: 15px;
   color: red
+} 
+  */
+
+/* Card.styles.css */
+
+/* Estilo para el formulario */
+.formulario {
+  margin-top: 30px;
+  font-size: 19px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Contenedor de cada campo */
+.divContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Estilo para los campos de entrada y menús desplegables */
+
+/* Contenedor específico para temperamentos */
+.divContainerTemps {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrado vertical */
+  /* justify-content: center; */ /* Si deseas centrado horizontal también */
+  margin-bottom: 20px;
+}
+
+/* Botones */
+.botonTemp {
+  background: #f8e9c5;
+  color: #41403e;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  margin: 10px auto;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonTemp:hover {
+  background-color: #d4a373;
+}
+
+/* Mensajes de error */
+.error {
+  font-size: 15px;
+  color: red;
+  text-align: center;
 }
